@@ -5,14 +5,12 @@ import argparse
 
 
 def main():
-    parser = setup_arg_parser()
-    args = parser.parse_args()
-    
+    args = setup_arg_parser().parse_args()
     html_content = fetch_webpage(args.url)
 
-    if args.condition and args.condition == 'gsm':
+    if args.condition and args.condition == 'gsmarena':
         # url = "https://www.gsmarena.com/samsung_galaxy_s24_ultra-12771.php"
-        results = parse_gsm(html_content)
+        results = parse_gsmarena(html_content)
         [print(x) for x in results]
     else:
         elements = parse_html(html_content, args.selector)
@@ -57,7 +55,7 @@ def parse_html(content, css_selector):
         return []
 
 
-def parse_gsm(content):
+def parse_gsmarena(content):
     try:
         soup = BeautifulSoup(content, 'html.parser')
         tags = []
@@ -78,7 +76,7 @@ def parse_gsm(content):
         return tags
     
     except Exception as e:
-        print(f"[parse_gsm] Error parsing HTML: {e}")
+        print(f"[parse_gsmarena] Error parsing HTML: {e}")
 
 
 if __name__ == "__main__":
